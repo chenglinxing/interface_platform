@@ -36,14 +36,21 @@
   import { TableForm } from "@/components/tableForm";
   import type { ITableTitleList } from "@/components/tableForm";
   import { ITableField } from "./type.ts";
-  import { test } from "@/mock";
+  import { createData } from "@/mock";
 
   //表单数据
   const formData = reactive({ tableData: [] as any });
 
   // 表格数据
   const tableData = reactive<ITableField>([
-    { fieldName: "", fieldType: null, fieldDesc: "" },
+    { fieldName: "name", fieldType: 2, fieldDesc: "姓名" },
+    {
+      fieldName: "age",
+      fieldType: 1,
+      fieldDesc: "年龄",
+      fieldMinLength: 15,
+      fieldMaxLength: 50,
+    },
   ]);
   formData.tableData = tableData;
 
@@ -120,15 +127,16 @@
     //只取字段名不为空的
     let data = tableData.filter((i: any) => i.fieldName.length > 0);
     console.log(data, "生成数据");
+    createData("/list", "get", data);
     const d = await axios.get("/list");
-    console.log(d);
+    console.log(d.data);
   };
 
-  const getList = async () => {
-    test("/list", "get", { a: 1 });
-  };
+  // const getList = async () => {
+  //   test("/list", "get", { a: 1 });
+  // };
 
-  getList();
+  // getList();
 </script>
 
 <style lang="scss" scoped>
