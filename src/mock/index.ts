@@ -10,7 +10,7 @@ import { ITableField } from "@/views/home/type.ts"
  */
 const createData = (url: string, method: string, data: any, dataLen = 10) => {
     let list = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < dataLen; i++) {
         let res = createRowData(data);
         list.push(res)
     }
