@@ -13,10 +13,12 @@
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
-.layout-index{
-  height: 100%;
-  .el-main{
-    height: 100%;
+  .layout-index {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .el-main {
+      height: 100%;
+    }
   }
-}
 </style>

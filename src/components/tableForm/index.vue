@@ -1,7 +1,7 @@
 <template>
   <div class="table-form-index">
     <el-form ref="formData" :model="formData">
-      <el-table ref="elTable" :data="formData[tableName]">
+      <el-table ref="elTable" border :data="formData[tableName]">
         <el-table-column
           type="index"
           fixed="left"
@@ -249,7 +249,9 @@
     cursor: pointer;
   }
 
-  ::v-deep .el-form-item {
+  :deep(.el-form-item) {
     margin-bottom: 4px;
   }
+  
+  
 </style>

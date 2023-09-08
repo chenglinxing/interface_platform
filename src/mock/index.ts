@@ -1,5 +1,6 @@
 import Mock from "mockjs";
-import { ITableField } from "@/views/home/type.ts"
+import { ITableField, EParamsType } from "@/views/home/type.ts"
+
 
 /**
  * 生成数据
@@ -41,22 +42,28 @@ const createRowData = (data: Array<ITableField>) => {
 /**
  * 格式化字段类型
  * 例如：将fileType = int、minlength = n,maxlength = m 则映射为"@integer(n, m)",
- * { label: "int", value: 1 },
-   { label: "string", value: 2 },
-   { label: "boolean", value: 3 },
-   { label: "null", value: 4 },
-   { label: "array", value: 5 },
-   { label: "object", value: 6 },
+ * 
+    {"label": "Boolean","value": 0}, 
+    {"label": "Date","value": 1},
+    {"label": "Function","value": 2},
+    {"label": "NaN","value": 3},
+    {"label": "Number","value": 4},
+    {"label": "Float","value": 5},
+    {"label": "Integer","value": 6},
+    {"label": "RegExp","value": 7},
+    {"label": "String","value": 8},
+    {"label": "Undefined","value": 9},
+    {"label": "Null","value": 10}
  */
 const formatFieldType = (fileProp: any) => {
     let { fieldName, fieldType, fieldDesc, fieldMinLength, fieldMaxLength } = fileProp
     let min = fieldMinLength || 2
     let max = fieldMaxLength || 4
     const fieldMap = {
-        1: Mock.Random.integer(min, max),
+        4: Mock.Random.integer(min, max),
         // 2: Mock.mock(`@cparagraph(${min},${max})`), //字符串
-        2: Mock.Random.cname(min, max), //字符串
-        3: Mock.Random.boolean(),
+        8: Mock.Random.cname(min, max), //字符串
+        0: Mock.Random.boolean(),
     }
     // console.log(fieldMap[fieldType], 'fieldMap[fieldType]')
     return fieldMap[fieldType]
