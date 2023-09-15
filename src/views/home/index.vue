@@ -33,8 +33,12 @@
               </el-select>
             </template>
             <template #append>
-              <el-button style="width: 90px" :icon="Search" type="primary"
-                >发送</el-button
+              <el-button
+                style="width: 120px"
+                :icon="Search"
+                type="primary"
+                @click="handleClickAddInterface"
+                >创建接口</el-button
               >
             </template>
           </el-input>
@@ -108,18 +112,7 @@
   import { ITableField, EParamsType } from "./type.ts";
   import { isValidateUrl, removeSpaces } from "@/utils";
   import { createData } from "@/mock";
-
-  const tableData1 = reactive([
-    { id: 1, name: "John", age: 28, address: "123 Main St" },
-    { id: 2, name: "Alice", age: 32, address: "456 Elm St" },
-    { id: 3, name: "Bob", age: 25, address: "789 Oak St" },
-  ]);
-
-  const tableDataTitle1 = reactive([
-    { prop: "id", label: "id" },
-    { prop: "name", label: "姓名" },
-    { prop: "address", label: "地址" },
-  ]);
+  import { ElMessage } from "element-plus";
 
   //折叠面板
   const activeName = ref("1");
@@ -133,6 +126,7 @@
     method: 1, //接口类型
     params: "", //参数
     mockNum: 10, //模拟数据条数
+    userName: localStorage.getItem("userName") || "admin",
   });
 
   //表单数据
@@ -239,6 +233,20 @@
   };
 
   ////////////////////////
+  //创建接口
+  const handleClickAddInterface = async () => {
+    //只取字段名不为空的
+    let data = tableData.filter((i: any) => i.fieldName.length > 0);
+    console.log(data, "生成数据");
+    createData("/list", "get", data, formData.mockNum);
+    const d = await axios.get("/list");
+    if (!formData.isRandomData) {
+      formData.params = JSON.stringify(d.data);
+      const result = await initData(formData);
+      console.log(result, "result");
+      ElMessage.success(result.msg);
+    }
+  };
   /**生成数据 */
   //生成后的数据data
   const generateTableData = ref([]);
@@ -260,13 +268,13 @@
 
   //init
   const initData = async (params: any) => {
-    const data = await axios.post(
-      "http://localhost:3000/interface/createInterface",
-      params
-    );
+    // const data = await axios.post(
+    //   "http://localhost:3000/interface/createInterface",
+    //   params
+    // );
 
-    console.log(data.data, "init");
-    return data.data;
+    // console.log(data.data, "init");
+    // return data.data;
   };
 
   // initData();

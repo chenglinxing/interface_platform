@@ -8,7 +8,6 @@ import vue from '@vitejs/plugin-vue';
 import path from "path"
 
 const resolve = (p) => path.resolve(__dirname, p)
-console.log(__dirname, 'd')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
@@ -21,5 +20,5 @@ export default defineConfig({
     alias: {
       "@": resolve("src")
     }
-  }
+  },
 })
