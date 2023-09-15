@@ -60,10 +60,10 @@ const formatFieldType = (fileProp: any) => {
     let min = fieldMinLength || 2
     let max = fieldMaxLength || 4
     const fieldMap = {
-        4: Mock.Random.integer(min, max),
+        'number': Mock.Random.integer(min, max),
         // 2: Mock.mock(`@cparagraph(${min},${max})`), //字符串
-        8: Mock.Random.cname(min, max), //字符串
-        0: Mock.Random.boolean(),
+        'string': Mock.Random.cname(min, max), //字符串
+        'boolean': Mock.Random.boolean(),
     }
     // console.log(fieldMap[fieldType], 'fieldMap[fieldType]')
     return fieldMap[fieldType]
